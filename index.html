@@ -135,135 +135,71 @@
         <div class="card-body overflow-auto">
           <div class="d-flex flex-nowrap gap-3">
 
-          <!--Lesson 1-->
-          <div class="col-lg-3 col-md-4 col-sm-6 lesson-card">
+          <!--Lessons-->
+          <div class="col-lg-3 col-md-4 col-sm-6 lesson-card"
+            v-for="lesson in lessons" :key="lesson.id">
             <div class="border rounded p-1 text-center">
-              <h5>Drama</h5>
-              <p>Hendon, Room C122</p>
-              <p>£15</p>
-              <p>Spaces Left: 5</p>
-              <button class="btn btn-success">
+              <h5>{{ lesson.subject }}</h5>
+              <img :src="lesson.image"
+                    :alt="lesson.subject"
+                    class="img-fluid rounded mb-2">
+              <p> {{ lesson.price }}</p>
+              <p>Spaces Left: {{ lesson.spaces }}</p>
+              <button class="btn btn-success"
+              @click="showLessonDetails(lesson)"
+              data-bs-toggle="modal"
+              data-bs-target="#lessonModal">
                 Information
               </button>
             </div>
           </div>
 
-          <!--Lesson 2-->
-          <div class="col-lg-3 col-md-4 col-sm-6 lesson-card">
-            <div class="border rounded p-1 text-center">
-              <h5>Science</h5>
-              <p>Hendon, Room C122</p>
-              <p>£15</p>
-              <p>Spaces Left: 5</p>
-              <button class="btn btn-success">
-                Information
-              </button>
+          <!--Full Screen Modal-->
+          <div class="modal fade" id="lessonModal" tabindex="-1">
+            <div class="modal-dialog modal-fullscreen">
+              <div class="modal-content">
+
+                <!--Modal Header/Title-->
+                <div class="modal-header bg-success text-white">
+
+                  <h2 class="modal-title"> {{ selectedLesson.subject }}</h2>
+                  <button type="button" class="btn-close btn-close-white"
+                  data-bs-dismiss="modal">
+                  </button>
+                </div>
+
+                <!--Modal Content/Info-->
+                
+                <div class="modal-body bg-modal">
+
+                  <div class="text-center">
+                    <img :src="selectedLesson.image"
+                      :alt="selectedLesson.subject"
+                      class="img-fluid rounded mb-4 w-50">
+                  </div>
+                  <h3>Location:</h3>
+                  <p> {{ selectedLesson.location }} </p>
+
+                  <h3>Price:</h3>
+                  <p> {{ selectedLesson.price }} </p>
+
+                  <h3>Spaces:</h3>
+                  <p> {{ selectedLesson.spaces }} </p>
+
+                  <h3>Description:</h3>
+                  <p> {{ selectedLesson.description }} </p>
+
+                  <div class="text-end">
+                    <button class="btn btn-success mb-2">Add to Cart 
+                        <i class="fas fa-shopping-cart"></i>
+                    </button>
+                  </div>
+
+                </div>
+              </div>
             </div>
           </div>
 
-          <!--Lesson 3-->
-          <div class="col-lg-3 col-md-4 col-sm-6 lesson-card">
-            <div class="border rounded p-1 text-center">
-              <h5>Art</h5>
-              <p>Hendon, Room C122</p>
-              <p>£15</p>
-              <p>Spaces Left: 5</p>
-              <button class="btn btn-success">
-                Information
-              </button>
-            </div>
-          </div>
-
-          <!--Lesson 4-->
-          <div class="col-lg-3 col-md-4 col-sm-6 lesson-card">
-            <div class="border rounded p-1 text-center">
-              <h5>Computer Science</h5>
-              <p>Hendon, Room C122</p>
-              <p>£15</p>
-              <p>Spaces Left: 5</p>
-              <button class="btn btn-success">
-                Information
-              </button>
-            </div>
-          </div>
-
-          <!--Lesson 5-->
-          <div class="col-lg-3 col-md-4 col-sm-6 lesson-card">
-            <div class="border rounded p-1 text-center">
-              <h5>Sports</h5>
-              <p>Hendon, Room C122</p>
-              <p>£15</p>
-              <p>Spaces Left: 5</p>
-              <button class="btn btn-success">
-                Information
-              </button>
-            </div>
-          </div>
-
-          <!--Lesson 6-->
-          <div class="col-lg-3 col-md-4 col-sm-6 lesson-card">
-            <div class="border rounded p-1 text-center">
-              <h5>Culinary Arts</h5>
-              <p>Hendon, Room C122</p>
-              <p>£15</p>
-              <p>Spaces Left: 5</p>
-              <button class="btn btn-success">
-                Information
-              </button>
-            </div>
-          </div>
-
-          <!--Lesson 7-->
-          <div class="col-lg-3 col-md-4 col-sm-6 lesson-card">
-            <div class="border rounded p-1 text-center">
-              <h5>Dance</h5>
-              <p>Hendon, Room C122</p>
-              <p>£15</p>
-              <p>Spaces Left: 5</p>
-              <button class="btn btn-success">
-                Information
-              </button>
-            </div>
-          </div>
-
-          <!--Lesson 8-->
-          <div class="col-lg-3 col-md-4 col-sm-6 lesson-card">
-            <div class="border rounded p-1 text-center">
-              <h5>Carpentry</h5>
-              <p>Hendon, Room C122</p>
-              <p>£15</p>
-              <p>Spaces Left: 5</p>
-              <button class="btn btn-success">
-                Information
-              </button>
-            </div>
-          </div>
-
-          <!--Lesson 9-->
-          <div class="col-lg-3 col-md-4 col-sm-6 lesson-card">
-            <div class="border rounded p-1 text-center">
-              <h5>Fashion Design</h5>
-              <p>Hendon, Room C122</p>
-              <p>£15</p>
-              <p>Spaces Left: 5</p>
-              <button class="btn btn-success">
-                Information
-              </button>
-            </div>
-          </div>
-
-          <!--Lesson 10-->
-          <div class="col-lg-3 col-md-4 col-sm-6 lesson-card">
-            <div class="border rounded p-1 text-center">
-              <h5>Textile</h5>
-              <p>Hendon, Room C122</p>
-              <p>£15</p>
-              <p>Spaces Left: 5</p>
-              <button class="btn btn-success">
-                Information
-              </button>
-            </div>
-          </div>
         </div>
     </div>
   </div>
@@ -272,16 +208,20 @@
 
 </div>
 
+<!--VUE SCRIPT-->
 <script type="module">
   const {createApp} = Vue;
   const myApp = createApp({
     data() {
       return {
+
+        //Lesson Information
         selectedLesson: "null",
 
         lessons: [{
-          id: 1, 
-          subject: "drama",
+          id: 1,
+          image: "Images/StudentImage-Dram.jpg", 
+          subject: "Drama",
           location: "Hendon, Building C, Room C122",
           price: "£15",
           spaces: 5,
@@ -289,7 +229,8 @@
       },
       {
         id: 2,
-        subject: "science",
+        image: "Images/StudentImage-Sci.jpg",
+        subject: "Science",
         location: "Hendon, Building H, Room H222",
         price: "£15",
         spaces: 5,
@@ -297,7 +238,8 @@
       },
       {
         id: 3,
-        subject: "art",
+        image: "Images/StudentImage-Art.jpg",
+        subject: "Art",
         location: "Hendon, Building H, Room H014",
         spaces: 5,
         price: "£15",
@@ -305,6 +247,7 @@
       },
       {
         id: 4,
+        image: "Images/StudentImage-Comp.jpg",
         subject: "Computer Science",
         location: "Hendon, Building C, Room C106",
         spaces: 5,
@@ -313,6 +256,7 @@
       },
       {
         id: 5,
+        image: "Images/StudentImage-Sport.jpg",
         subject: "Sports",
         location: "Hendon, Astrostadium, All Pitches",
         spaces: 5,
@@ -321,6 +265,7 @@
       },
       {
         id: 6,
+        image: "Images/StudentImage-Culin.jpg",
         subject: "Culinary Arts",
         location: "Hendon, Building H, Room H233",
         spaces: 5,
@@ -329,6 +274,7 @@
       },
       {
         id: 7,
+        image: "Images/StudentImage-Dance.jpg",
         subject: "Dance",
         location: "Hendon, Building R, Room R011",
         spaces: 5,
@@ -337,6 +283,7 @@
       },
       {
         id: 8,
+        image: "Images/StudentImage-Carp.jpg",
         subject: "Carpentry",
         location: "Hendon, Building H, Room H011",
         spaces: 5,
@@ -345,6 +292,7 @@
       },
       {
         id: 9,
+        image: "Images/StudentImage-Fash.jpg",
         subject: "Fashion Design",
         location: "Hendon, Building R, Room R022",
         spaces: 5,
@@ -353,6 +301,7 @@
       },
       {
         id: 10,
+        image: "Images/StudentImage-Text.jpg",
         subject: "Textile",
         location: "Hendon, Building R, Room R025",
         spaces: 5,
@@ -363,8 +312,15 @@
     ]
       }
     },
-    mounted() {
-      console.log(this.message)
+    
+    //METHODS ----------------------------
+    methods: {
+
+      //Shows lesson details in modal after clicking information
+      showLessonDetails(lesson) {
+        this.selectedLesson = lesson;
+        console.log(this.selectedLesson)
+      }
     }
   })
   myApp.mount("#UBapplication")

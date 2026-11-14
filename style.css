@@ -113,3 +113,13 @@
   overflow: hidden;
 }
 
+/* Modal Styling*/
+.modal-body img {
+  border-radius: 15px;
+}
+
+.bg-modal {
+  background: linear-gradient(rgba(255, 255, 255, 0.4),
+  rgba(255, 255, 255, 0.4)),
+   url("Images/LeavesBackgroundImage.jpg");
+}
