@@ -80,7 +80,7 @@
   background-repeat: no-repeat;
   background-position: fixed;
   width: 100%;
-  min-height: 86vh;
+  min-height: 85vh;
   font-family:"Libre Caslon Condensed", sans-serif;
   font-size: large; 
 }
@@ -98,19 +98,43 @@
   border-radius: 10px;
 }
 
-.class-section .option:hover {
-  background-color: rgb(44, 121, 44) !important;
-  color:white !important;
-}
-
-.class-section .input-group-text:focus {
-  border-color:  rgb(61, 137, 61);
+.form-select:focus {
+  border-color: #198574;
   box-shadow: none !important;
   outline: none !important;
 }
 
+.filter {
+  width: 50% !important;
+  min-width: 50% !important;
+  font-size: small;
+}
+
 .class-section .card {
   overflow: hidden;
+}
+
+.card-body {
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 400px;
+}
+
+.lesson-card {
+  min-width: 250px;
+}
+
+.lesson-card .border {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 90%;
+}
+
+.lesson-card .img {
+  width: 25%;
+  height: 50px;
+  object-fit: cover;
 }
 
 /* Modal Styling*/

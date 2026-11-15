@@ -104,41 +104,36 @@
 <section class="class-section">
   <div class="container">
 
-    <h1 class="text-center mt-5 text-green fw-bold pt-4">Classes</h1>
+    
+      <!--Lessons Card-->
+      <div class="card shadow w-100 mt-5">
+        <div class="card-header bg-success text-white">
+          <div class="d-flex justify-content-between align-items-center">
+          <h3 class="mb-0">Available Classes</h3>
 
     <!--Sort Filter-->
-    <div class="row mb-4 pt-1">
-      <div class="col-md-4">
-        <div class="input-group mb-3">
-          <label class="input-group-text" for="inputGroupSelect01">
-            <i class="fa-solid fa-filter me-2"></i>
-            Filter
-          </label>
-          <select class="form-select" id="inputGroupSelect01">
+    <div class="d-flex gap-2 align-items-end">
+        <select class="form-select form-select-sm filter">
             <option>Subject</option>
             <option>Location</option>
             <option>Price</option>
             <option>Spaces</option>
-            <option>Ascending Order</option>
-            <option>Descending Order</option>
-         </select>
-       </div>
+        </select>
+        <select class="form-select form-select-sm filter">
+            <option>Ascending</option>
+            <option>Descending</option>
+        </select>
       </div>
     </div>
-
-      <!--Lessons Card-->
-      <div class="card shadow w-100">
-        <div class="card-header bg-success text-white">
-          <h3 class="mb-0">Available Classes</h3>
-        </div>
+  </div>
 
         <div class="card-body overflow-auto">
-          <div class="d-flex flex-nowrap gap-3">
+          <div class="row g-3">
 
           <!--Lessons-->
           <div class="col-lg-3 col-md-4 col-sm-6 lesson-card"
             v-for="lesson in lessons" :key="lesson.id">
-            <div class="border rounded p-1 text-center">
+            <div class="border rounded p-1 text-center h-100">
               <h5>{{ lesson.subject }}</h5>
               <img :src="lesson.image"
                     :alt="lesson.subject"

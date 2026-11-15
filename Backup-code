@@ -1,0 +1,19 @@
+<!--Sort Filter-->
+    <div class="row mb-4 mt-5 pt-1">
+      <div class="col-md-4">
+        <div class="input-group mb-3">
+          <label class="input-group-text" for="inputGroupSelect01">
+            <i class="fa-solid fa-filter me-2"></i>
+            Filter
+          </label>
+          <select class="form-select" id="inputGroupSelect01">
+            <option>Subject</option>
+            <option>Location</option>
+            <option>Price</option>
+            <option>Spaces</option>
+            <option>Ascending Order</option>
+            <option>Descending Order</option>
+         </select>
+       </div>
+      </div>
+    </div>
