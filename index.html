@@ -113,15 +113,15 @@
 
     <!--Sort Filter-->
     <div class="d-flex gap-2 align-items-end">
-        <select class="form-select form-select-sm filter">
-            <option>Subject</option>
-            <option>Location</option>
-            <option>Price</option>
-            <option>Spaces</option>
+        <select class="form-select form-select-sm filter" v-model="sortBy">
+            <option value="subject">Subject</option>
+            <option value="location">Location</option>
+            <option value="price">Price</option>
+            <option value="spaces">Spaces</option>
         </select>
-        <select class="form-select form-select-sm filter">
-            <option>Ascending</option>
-            <option>Descending</option>
+        <select class="form-select form-select-sm filter" v-model="sortOrder">
+            <option value="ascending">Ascending</option>
+            <option value="descending">Descending</option>
         </select>
       </div>
     </div>
@@ -132,13 +132,14 @@
 
           <!--Lessons-->
           <div class="col-lg-3 col-md-4 col-sm-6 lesson-card"
-            v-for="lesson in lessons" :key="lesson.id">
+            v-for="lesson in sortedLessons" :key="lesson.id">
             <div class="border rounded p-1 text-center h-100">
               <h5>{{ lesson.subject }}</h5>
               <img :src="lesson.image"
                     :alt="lesson.subject"
                     class="img-fluid rounded mb-2">
-              <p> {{ lesson.price }}</p>
+              <p> £{{ lesson.price }}</p>
+              <p> {{ lesson.location }}</p>
               <p>Spaces Left: {{ lesson.spaces }}</p>
               <button class="btn btn-success"
               @click="showLessonDetails(lesson)"
@@ -152,7 +153,7 @@
           <!--Full Screen Modal-->
           <div class="modal fade" id="lessonModal" tabindex="-1">
             <div class="modal-dialog modal-fullscreen">
-              <div class="modal-content">
+              <div class="modal-content" v-if="selectedLesson">
 
                 <!--Modal Header/Title-->
                 <div class="modal-header bg-success text-white">
@@ -176,13 +177,15 @@
                   <p> {{ selectedLesson.location }} </p>
 
                   <h3>Price:</h3>
-                  <p> {{ selectedLesson.price }} </p>
+                  <p> £{{ selectedLesson.price }} </p>
 
                   <h3>Spaces:</h3>
                   <p> {{ selectedLesson.spaces }} </p>
 
                   <h3>Description:</h3>
                   <p> {{ selectedLesson.description }} </p>
+
+             
 
                   <div class="text-end">
                     <button class="btn btn-success mb-2">Add to Cart 
@@ -211,14 +214,26 @@
       return {
 
         //Lesson Information
-        selectedLesson: "null",
+        selectedLesson: {
+          subject:"",
+          image: "",
+          location: "",
+          price: "",
+          spaces: "",
+          description: ""
+        },
 
+        //Filter and sort options using v-if
+        sortBy: "subject",
+        sortOrder: "ascending",
+
+        //All Lesson Information using v-for
         lessons: [{
           id: 1,
           image: "Images/StudentImage-Dram.jpg", 
           subject: "Drama",
           location: "Hendon, Building C, Room C122",
-          price: "£15",
+          price: 15,
           spaces: 5,
           description: "Drama classes are designed to improve students' acting skills, build confidence and express themselves creatively."
       },
@@ -227,7 +242,7 @@
         image: "Images/StudentImage-Sci.jpg",
         subject: "Science",
         location: "Hendon, Building H, Room H222",
-        price: "£15",
+        price: 25,
         spaces: 5,
         description: "Science classes are designed to improve students' understanding about biology, chemistry and physics and develop analytical skills."
       },
@@ -237,70 +252,70 @@
         subject: "Art",
         location: "Hendon, Building H, Room H014",
         spaces: 5,
-        price: "£15",
+        price: 20,
         description: "Art classes are designed to let students express and improve their creativity through painting, drawing, pottery and other art forms."
       },
       {
         id: 4,
         image: "Images/StudentImage-Comp.jpg",
         subject: "Computer Science",
-        location: "Hendon, Building C, Room C106",
+        location: "Colindale, Building C, Room C106",
         spaces: 5,
-        price: "£15",
+        price: 10,
         description: "Computer Science classes are designed to improve students' programming skills, problem-solving ability and understanding of algorithms."
       },
       {
         id: 5,
         image: "Images/StudentImage-Sport.jpg",
         subject: "Sports",
-        location: "Hendon, Astrostadium, All Pitches",
+        location: "Colindale, Astrostadium, All Pitches",
         spaces: 5,
-        price: "£15",
+        price: 10,
         description: "Sports classes are designed to improve students' physical fitness, teamwork and sportsmanship through various sport activities."
       },
       {
         id: 6,
         image: "Images/StudentImage-Culin.jpg",
         subject: "Culinary Arts",
-        location: "Hendon, Building H, Room H233",
+        location: "Colindale, Building H, Room H233",
         spaces: 5,
-        price: "£15",
+        price: 10,
         description:"Culinary Art classes are designed to improve students' cooking and baking skills, creativity and understanding of food science."
       },
       {
         id: 7,
         image: "Images/StudentImage-Dance.jpg",
         subject: "Dance",
-        location: "Hendon, Building R, Room R011",
+        location: "Edgeware, Building R, Room R011",
         spaces: 5,
-        price: "£15",
+        price: 10,
         description: "Dance classes are designed to let student express themselves through various dance forms, improve their technique and build confidence."
       },
       {
         id: 8,
         image: "Images/StudentImage-Carp.jpg",
         subject: "Carpentry",
-        location: "Hendon, Building H, Room H011",
+        location: "Edgeware, Building H, Room H011",
         spaces: 5,
-        price: "£15",
+        price: 15,
         description: "Carpentry classes are designed to improve students' woodworking skills, creativity or practical skills and understanding of contrusction techniques."
       },
       {
         id: 9,
         image: "Images/StudentImage-Fash.jpg",
         subject: "Fashion Design",
-        location: "Hendon, Building R, Room R022",
+        location: "Brent Cross, Building R, Room R022",
         spaces: 5,
-        price: "£15",
+        price: 25,
         description: "Fashion design classes are designed to improve students' creativity, sewing skills and undertstanding of fashion trends and techniques."
       },
       {
         id: 10,
         image: "Images/StudentImage-Text.jpg",
         subject: "Textile",
-        location: "Hendon, Building R, Room R025",
+        location: "Brent Cross, Building R, Room R025",
         spaces: 5,
-        price: "£15",
+        price: 20,
         description: "Textile classes are designed to improve students' understanding of materials, creativity and sewing skills through various techniques."
       }
       
@@ -315,6 +330,33 @@
       showLessonDetails(lesson) {
         this.selectedLesson = lesson;
         console.log(this.selectedLesson)
+      }
+    },
+
+    //COMPUTED ----------------------------
+    computed: {
+
+      //Sort Function
+      sortedLessons() {
+
+        //Lesson List
+        let lessonsList = [...this.lessons];
+
+        lessonsList.sort((a, b) => {
+
+          //Filters subjects by Alphabetical Order 
+          if (a[this.sortBy] < b[this.sortBy]) return -1;
+          if (a[this.sortBy] > b[this.sortBy]) return 1;
+          return 0;
+        });
+
+        //Reverses the order to ascending for both Alphabetical 
+        //and Numerical Order
+          if (this.sortOrder === "descending") {
+            lessonsList.reverse();
+          }
+
+        return lessonsList;
       }
     }
   })

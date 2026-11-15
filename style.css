@@ -85,19 +85,6 @@
   font-size: large; 
 }
 
-.class-section .input-group-text {
-  background-color: rgb(68, 116, 77);
-  border: 2px solid rgb(68, 116, 77);
-  color: white;
-}
-
-.class-section .input-group {
-  width: 70% !important;
-  margin: auto;
-  border: 2px solid rgb(78, 104, 78);
-  border-radius: 10px;
-}
-
 .form-select:focus {
   border-color: #198574;
   box-shadow: none !important;
@@ -117,7 +104,7 @@
 .card-body {
   overflow-x: hidden;
   overflow-y: auto;
-  max-height: 400px;
+  max-height: 435px;
 }
 
 .lesson-card {
