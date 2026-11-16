@@ -63,12 +63,21 @@
           <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
 
-        <!--Checkout Button-->
+        <!--Cart Button-->
         <div class="d-grid mt-3 check-button">
-          <button class="btn btn-success">
+          <button class="btn btn-success"
+           @click="showCart = !showCart"
+           :disabled="cart.length === 0">
+
             <i class="fa-solid fa-cart-shopping me-2"></i>
-            Checkout ({{cart.length}})
+            <span v-if="showCart">
+              Back to Classes
+            </span>
+            <span v-else>
+              Cart ({{cart.length}})
+            </span>
           </button>
+
         </div>
       </div>
     </div>
@@ -101,7 +110,7 @@
 </section>
 
 <!--CLASSES SECTION-->
-<section class="class-section">
+<section class="class-section" v-if="!showCart">
   <div class="container">
 
     
@@ -192,8 +201,6 @@
                   <h3>Description:</h3>
                   <p> {{ selectedLesson.description }} </p>
 
-             
-
                   <!--ADD TO CART Button-->
                   <div class="text-end">
                     <button class="btn btn-success mb-2"
@@ -212,6 +219,55 @@
     </div>
   </div>
 </section>
+
+<!--CART SECTION-->
+<section class="cart-section" v-if="showCart">
+  <div class="container">
+    
+    <div class="card shadow mt-5 cart-card">
+
+         <div class="card-header bg-success text-white">
+          <h3 class="mb-0">
+            Shopping Cart ({{ cart.length }})
+          </h3>
+         </div>
+
+        <div class="card-body">
+          <div class="row align-items-center border-bottom py-3"
+            v-for="(item, index) in cart"
+         :key="index">
+
+         <div class="col-md-3">
+          <strong>{{item.subject}}</strong>
+         </div>
+
+         <div class="col-md-3">
+          <strong>£{{item.price}}</strong>
+         </div>
+
+         <div class="col-md-4">
+          <strong>{{item.location}}</strong>
+         </div>
+
+         <div class="col-md-2 text-end">
+          <button class="btn btn-outline-danger"
+            @click="removeFromCart(item)">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+         </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn btn-success mt-3"
+    @click="showCart = false">
+
+    <i class="fa-solid fa-arrow-left me-2"></i>
+     Back to Classes
+  </button>
+</div>
+</section>
+
 </div>
 
 <!--VUE SCRIPT-->
@@ -220,6 +276,9 @@
   const myApp = createApp({
     data() {
       return {
+
+        //Cart Display
+        showCart: false,
 
         //Once added
         addedToCart: false,
@@ -346,7 +405,10 @@
       //Shows lesson details in modal after clicking information
       showLessonDetails(lesson) {
         this.selectedLesson = lesson;
-        console.log(this.selectedLesson)
+
+        //resets when viewing another lesson
+        this.addedToCart = false;
+        console.log("Lessons:", lesson)
       },
 
     //Adds to cart and is counted and subtracted
@@ -359,8 +421,20 @@
 
         //adds to cart
         this.addedToCart = true;
+
+        console.log("Cart size:", this.cart.length)
       }
+    },
+
+    removeFromCart(item) {
+
+      //If user did not book add the spaces back
+      item.spaces++;
+
+      const index = this.cart.indexOf(item);
+      this.cart.splice(item, 1);
     }
+
   },
     //COMPUTED ----------------------------
     computed: {

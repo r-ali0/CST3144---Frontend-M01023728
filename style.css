@@ -134,3 +134,29 @@
   rgba(255, 255, 255, 0.4)),
    url("Images/LeavesBackgroundImage.jpg");
 }
+
+/* Cart section Styling */
+.cart-section {
+  background: linear-gradient(rgba(255, 255, 255, 0.4),
+  rgba(255, 255, 255, 0.4)),
+   url("Images/LeavesBackgroundImage.jpg");
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: fixed;
+  width: 100%;
+  min-height: 85vh;
+  font-family:"Libre Caslon Condensed", sans-serif;
+  font-size: large; 
+}
+
+.btn-outline-danger:hover {
+  transform: scale(1.1);
+  transition: 0.2s;
+}
+
+.cart-card {
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 390px;
+}
