@@ -1,31 +1,5 @@
-  <!--CONFIRMATION Modal-->
-                <div class="modal fade" id="confirmModal" tabindex="-1">
-                
-                  <div class="modal-dialog modal-dialog-centered">
-
-                    <div class="modal-content">
-
-                      <div class="modal-header bg-success text-white">
-                        <h5 class="modal-title">Added to Cart!</h5>
-
-                        <button type="button" class="btn-close btn-close-white"
-                           data-bs-dismiss="modal">
-                        </button>
-                      </div>
-                      <div class="modal-body text-center">
-
-                        <!--Message-->
-                        <i class="fa-solid fa-circle-check text-success fa-4x mb-3"></i>
-                        <p>{{confirmMessage}}</p>
-                      </div>
-
-                      <div class="modal-footer">
-                      
-                        <!--Continue Browsing Button-->
-                        <button class="btn btn-success" data-bs-dismiss="modal">
-                          Continue Browsing
-                        </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+- lesson data
+- database information
+- update availabiltiy
+- search functionality backend
+- enrolment backend

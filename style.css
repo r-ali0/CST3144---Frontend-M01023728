@@ -1,6 +1,19 @@
 /* Imports */
 @import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Condensed&display=swap');
 
+/* General */
+body {
+  overflow-y: hidden !important;
+}
+
+.class-section {
+  padding-top: 60px;
+}
+
+.cart-section {
+  padding-top: 60px;
+}
+
 /* Body Colour */
 .body-Lgreen {
   background-color: rgb(231, 246, 233);
@@ -80,7 +93,7 @@
   background-repeat: no-repeat;
   background-position: fixed;
   width: 100%;
-  min-height: 85vh;
+  min-height: 93vh;
   font-family:"Libre Caslon Condensed", sans-serif;
   font-size: large; 
 }
@@ -145,7 +158,7 @@
   background-repeat: no-repeat;
   background-position: fixed;
   width: 100%;
-  min-height: 85vh;
+  min-height: 100vh;
   font-family:"Libre Caslon Condensed", sans-serif;
   font-size: large; 
 }
@@ -159,4 +172,13 @@
   overflow-x: hidden;
   overflow-y: auto;
   max-height: 390px;
+}
+
+.check-modal {
+  background: linear-gradient(rgba(255, 255, 255, 0.4),
+  rgba(255, 255, 255, 0.4)),
+   url("Images/LeavesBackgroundImage.jpg");
+
+   font-family:"Libre Caslon Condensed", sans-serif;
+   font-size: large; 
 }

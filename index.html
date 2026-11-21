@@ -50,10 +50,10 @@
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" aria-current="page" href="#" v-on:click="currentPage = 'home'">Home</a>
           </li>
            <li class="nav-item">
-            <a class="nav-link" href="#">Classes</a>
+            <a class="nav-link" href="#" v-on:click="currentPage = 'classes'">Classes</a>
           </li>
         </ul>
 
@@ -66,14 +66,15 @@
         <!--Cart Button-->
         <div class="d-grid mt-3 check-button">
           <button class="btn btn-success"
-           @click="showCart = !showCart"
+           v-on:click="showCart = !showCart"
            :disabled="cart.length === 0">
 
-            <i class="fa-solid fa-cart-shopping me-2"></i>
             <span v-if="showCart">
+            <i class="fa-solid fa-arrow-left me-2"></i>
               Back to Classes
             </span>
             <span v-else>
+            <i class="fa-solid fa-cart-shopping me-2"></i>
               Cart ({{cart.length}})
             </span>
           </button>
@@ -85,7 +86,8 @@
 </nav>
 
 <!--HOME PAGE SECTION-->
-<section class="home-section">
+<section class="home-section" 
+id="home" v-if="currentPage === 'home'">
   <div class="container">
     <div class="row gy-5 align-items-center mt-5 p-5">
 
@@ -94,7 +96,7 @@
         <div class="home-info text-center text-lg-start">
           <h1>Welcome to Activity Bookings.</h1>
           <p>There are many classes to choose from. Book your classes today!</p>
-          <button class="btn btn-success text-white mt-3">Book Now!</button>
+          <button class="btn btn-success text-white mt-3" v-on:click="currentPage = 'classes'">Book Now!</button>
         </div>
       </div>
 
@@ -110,7 +112,8 @@
 </section>
 
 <!--CLASSES SECTION-->
-<section class="class-section" v-if="!showCart">
+<section class="class-section" v-if="!showCart"
+ id="classes" v-if="currentPage === 'classes'" v-if="currentPage === 'classes'">
   <div class="container">
 
     
@@ -204,7 +207,7 @@
                   <!--ADD TO CART Button-->
                   <div class="text-end">
                     <button class="btn btn-success mb-2"
-                          @click="addToCart(selectedLesson)"
+                          v-on:click="addToCart(selectedLesson)"
                           :disabled="selectedLesson.spaces === 0">
                           Add to Cart 
                           <i class="fas fa-shopping-cart"></i>
@@ -215,23 +218,27 @@
               </div>
             </div>
           </div>
-        </div>
+
+      </div>
     </div>
   </div>
 </section>
 
 <!--CART SECTION-->
-<section class="cart-section" v-if="showCart">
+<section class="cart-section" v-if="showCart" 
+id="cart" v-if="currentPage === 'cart'">
   <div class="container">
     
-    <div class="card shadow mt-5 cart-card">
+    <div class="card shadow mt-5 mb-0 cart-card">
 
+      <!--Header-->
          <div class="card-header bg-success text-white">
           <h3 class="mb-0">
             Shopping Cart ({{ cart.length }})
           </h3>
          </div>
 
+         <!--Cart Content - subject, price, item, location-->
         <div class="card-body">
           <div class="row align-items-center border-bottom py-3"
             v-for="(item, index) in cart"
@@ -249,6 +256,7 @@
           <strong>{{item.location}}</strong>
          </div>
 
+         <!--Remove from cart button-->
          <div class="col-md-2 text-end">
           <button class="btn btn-outline-danger"
             @click="removeFromCart(item)">
@@ -259,15 +267,66 @@
     </div>
   </div>
 
-  <button class="btn btn-success mt-3"
-    @click="showCart = false">
+  <!--Back to classes button-->
+  <div class="d-flex justify-content-between align-items-center mt-3">
+    <button class="btn btn-success"
+      @click="showCart = false">
 
-    <i class="fa-solid fa-arrow-left me-2"></i>
-     Back to Classes
-  </button>
+      <i class="fa-solid fa-arrow-left me-2"></i>
+      Back to Classes
+    </button>
+  
+  <!--Checkout button-->
+    <button class="btn btn-success"
+      @click="showCart = false" data-bs-toggle="modal" 
+      data-bs-target="#checkoutModal">
+
+      <i class="fas fa-shopping-cart me-2"></i>
+      Checkout
+    </button>
+  </div>
+</div>
+
+<!--CHECKOUT USER INPUT MODAL-->
+<div class="modal fade check-modal" id="checkoutModal" tabindex="-1">
+
+  <!-- Vertically centered modal -->
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title">Checkout</h5>
+
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+
+        <!--Name-->
+        <div class="mb-3">
+          <label class="form-label"><i class="fa-solid fa-user"></i></label>
+          <input type="text" class="form-control" placeholder="Name" v-model="customerName">
+        </div>
+
+        <!--Phone-->
+        <div class="mb-3">
+          <label class="form-label"><i class="fa-solid fa-phone"></i></i></label>
+          <input type="number" class="form-control" placeholder="Phone" v-model="customerPhone">
+        </div>
+
+        <!--Confirmation-->
+        <div v-if="orderSubmitted" class="alert alert-success">
+          Order submitted successfully!
+        </div>
+
+        <button class="btn btn-success"
+        :disabled="!validCheckout"
+        v-on:click="sumbmitOrder">Checkout!</button>
+
+      </div>
+    </div>
+  
+  </div>
 </div>
 </section>
-
 </div>
 
 <!--VUE SCRIPT-->
@@ -276,6 +335,14 @@
   const myApp = createApp({
     data() {
       return {
+
+        //Customer Input
+        customerName: "",
+        customerPhone: "",
+        orderSubmitted: false,
+
+        //Nav
+        currentPage: 'home',
 
         //Cart Display
         showCart: false,
@@ -303,7 +370,7 @@
         sortBy: "subject",
         sortOrder: "ascending",
 
-        //All Lesson Information using v-for
+        //All Lesson Information using v-for - copy and pasted to the backend.
         lessons: [{
           id: 1,
           image: "Images/StudentImage-Dram.jpg", 
@@ -426,6 +493,7 @@
       }
     },
 
+    //Okay to leave in the frontend
     removeFromCart(item) {
 
       //If user did not book add the spaces back
@@ -439,7 +507,7 @@
     //COMPUTED ----------------------------
     computed: {
 
-      //Sort Function
+      //Sort Function - Okay in frontend
       sortedLessons() {
 
         //Lesson List
